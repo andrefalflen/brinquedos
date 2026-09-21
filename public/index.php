@@ -1,6 +1,6 @@
 <?php
 
-include("config/conexao.php");
+include("../config/conexao.php");
 
 $sql = "SELECT * FROM brinquedos ORDER BY id DESC";
 
