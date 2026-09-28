@@ -1,14 +1,10 @@
 <?php
 
-include("../config/conexao.php");
+include("config/conexao.php");
 
-$sql = "SELECT * FROM brinquedos ORDER BY id DESC";
+$sql = "SELECT * FROM brinquedos";
 
 $resultado = $conexao->query($sql);
-
-if (!$resultado) {
-    die("Erro ao buscar os brinquedos: " . $conexao->error);
-}
 
 ?>
 
@@ -19,7 +15,7 @@ if (!$resultado) {
 
     <meta charset="UTF-8">
 
-    <title>Gestão de Brinquedos</title>
+    <title>Brinquedos</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -29,78 +25,57 @@ if (!$resultado) {
 
 <div class="container mt-5">
 
-    <h1>Gestão de Brinquedos</h1>
+    <h1>Lista de Brinquedos</h1>
 
-    <a href="cadastrar.php" class="btn btn-primary mb-3">
+    <a href="public/cadastrar.php" class="btn btn-primary mb-3">
         Cadastrar brinquedo
     </a>
 
     <table class="table table-bordered">
 
-        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Faixa Etária</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Ações</th>
+        </tr>
 
-            <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Categoria</th>
-                <th>Faixa Etária</th>
-                <th>Preço</th>
-                <th>Quantidade</th>
-                <th>Ações</th>
-            </tr>
+        <?php while ($brinquedo = $resultado->fetch_assoc()) { ?>
 
-        </thead>
+        <tr>
 
-        <tbody>
+            <td><?= $brinquedo["id"] ?></td>
 
-            <?php while ($brinquedo = $resultado->fetch_assoc()) { ?>
+            <td><?= $brinquedo["nome"] ?></td>
 
-                <tr>
+            <td><?= $brinquedo["categoria"] ?></td>
 
-                    <td>
-                        <?= $brinquedo["id"] ?>
-                    </td>
+            <td><?= $brinquedo["faixa_etaria"] ?></td>
 
-                    <td>
-                        <?= htmlspecialchars($brinquedo["nome"]) ?>
-                    </td>
+            <td>R$ <?= $brinquedo["preco"] ?></td>
 
-                    <td>
-                        <?= htmlspecialchars($brinquedo["categoria"]) ?>
-                    </td>
+            <td><?= $brinquedo["quantidade"] ?></td>
 
-                    <td>
-                        <?= htmlspecialchars($brinquedo["faixa_etaria"]) ?>
-                    </td>
+            <td>
 
-                    <td>
-                        R$ <?= number_format($brinquedo["preco"], 2, ",", ".") ?>
-                    </td>
+                <a href="public/editar.php?id=<?= $brinquedo["id"] ?>"
+                   class="btn btn-warning btn-sm">
+                    Editar
+                </a>
 
-                    <td>
-                        <?= $brinquedo["quantidade"] ?>
-                    </td>
+                <a href="public/excluir.php?id=<?= $brinquedo["id"] ?>"
+                   class="btn btn-danger btn-sm">
+                    Excluir
+                </a>
 
-                    <td>
+            </td>
 
-                        <a href="editar.php?id=<?= $brinquedo["id"] ?>"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+        </tr>
 
-                        <a href="excluir.php?id=<?= $brinquedo["id"] ?>"
-                           class="btn btn-danger btn-sm"
-                           onclick="return confirm('Deseja excluir este brinquedo?')">
-                            Excluir
-                        </a>
-
-                    </td>
-
-                </tr>
-
-            <?php } ?>
-
-        </tbody>
+        <?php } ?>
 
     </table>
 
