@@ -6,6 +6,10 @@ $sql = "SELECT * FROM brinquedos ORDER BY id DESC";
 
 $resultado = $conexao->query($sql);
 
+if (!$resultado) {
+    die("Erro ao buscar os brinquedos: " . $conexao->error);
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,15 +62,15 @@ $resultado = $conexao->query($sql);
                     </td>
 
                     <td>
-                        <?= $brinquedo["nome"] ?>
+                        <?= htmlspecialchars($brinquedo["nome"]) ?>
                     </td>
 
                     <td>
-                        <?= $brinquedo["categoria"] ?>
+                        <?= htmlspecialchars($brinquedo["categoria"]) ?>
                     </td>
 
                     <td>
-                        <?= $brinquedo["faixa_etaria"] ?>
+                        <?= htmlspecialchars($brinquedo["faixa_etaria"]) ?>
                     </td>
 
                     <td>
