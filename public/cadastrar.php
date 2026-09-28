@@ -1,8 +1,8 @@
 <?php
 
-include("config/conexao.php");
+include("../config/conexao.php");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if (isset($_POST["cadastrar"])) {
 
     $nome = $_POST["nome"];
     $categoria = $_POST["categoria"];
@@ -10,46 +10,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $preco = $_POST["preco"];
     $quantidade = $_POST["quantidade"];
 
-    if (
-        empty($nome) ||
-        empty($categoria) ||
-        empty($faixa_etaria) ||
-        empty($preco) ||
-        empty($quantidade)
-    ) {
+    $sql = "INSERT INTO brinquedos
+            (nome, categoria, faixa_etaria, preco, quantidade)
+            VALUES (?, ?, ?, ?, ?)";
 
-        echo "Preencha todos os campos.";
+    $stmt = $conexao->prepare($sql);
 
-    } else {
+    $stmt->bind_param(
+        "sssdi",
+        $nome,
+        $categoria,
+        $faixa_etaria,
+        $preco,
+        $quantidade
+    );
 
-        $sql = "INSERT INTO brinquedos 
-                (nome, categoria, faixa_etaria, preco, quantidade)
-                VALUES (?, ?, ?, ?, ?)";
+    $stmt->execute();
 
-        $stmt = $conexao->prepare($sql);
-
-        $stmt->bind_param(
-            "sssdi",
-            $nome,
-            $categoria,
-            $faixa_etaria,
-            $preco,
-            $quantidade
-        );
-
-        if ($stmt->execute()) {
-
-            header("Location: index.php");
-            exit;
-
-        } else {
-
-            echo "Erro ao cadastrar: " . $stmt->error;
-
-        }
-
-        $stmt->close();
-    }
+    header("Location: ../index.php");
+    exit;
 }
 
 ?>
