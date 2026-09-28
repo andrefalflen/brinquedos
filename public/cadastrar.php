@@ -40,7 +40,7 @@ if (isset($_POST["cadastrar"])) {
 
     <meta charset="UTF-8">
 
-    <title>Cadastrar Brinquedo</title>
+    <title>Cadastrar</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -54,62 +54,28 @@ if (isset($_POST["cadastrar"])) {
 
     <form method="POST">
 
-        <div class="mb-3">
+        <label>Nome</label>
+        <input type="text" name="nome" class="form-control mb-3">
 
-            <label>Nome</label>
+        <label>Categoria</label>
+        <input type="text" name="categoria" class="form-control mb-3">
 
-            <input type="text"
-                   name="nome"
-                   class="form-control">
+        <label>Faixa Etária</label>
+        <input type="text" name="faixa_etaria" class="form-control mb-3">
 
-        </div>
+        <label>Preço</label>
+        <input type="number" step="0.01" name="preco" class="form-control mb-3">
 
-        <div class="mb-3">
+        <label>Quantidade</label>
+        <input type="number" name="quantidade" class="form-control mb-3">
 
-            <label>Categoria</label>
-
-            <input type="text"
-                   name="categoria"
-                   class="form-control">
-
-        </div>
-
-        <div class="mb-3">
-
-            <label>Faixa Etária</label>
-
-            <input type="text"
-                   name="faixa_etaria"
-                   class="form-control">
-
-        </div>
-
-        <div class="mb-3">
-
-            <label>Preço</label>
-
-            <input type="number"
-                   step="0.01"
-                   name="preco"
-                   class="form-control">
-
-        </div>
-
-        <div class="mb-3">
-
-            <label>Quantidade</label>
-
-            <input type="number"
-                   name="quantidade"
-                   class="form-control">
-
-        </div>
-
-        <button type="submit" class="btn btn-success">
+        <button type="submit"
+                name="cadastrar"
+                class="btn btn-success">
             Cadastrar
         </button>
 
-        <a href="index.php" class="btn btn-secondary">
+        <a href="../index.php" class="btn btn-secondary">
             Voltar
         </a>
 
