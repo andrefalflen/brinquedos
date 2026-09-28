@@ -7,7 +7,7 @@ $usuario = "root";
 $senha = "";
 $banco = "gestao_brinquedos";
 
-$conexao = new mysqli($servidor, $usuario, $senha, $banco);
+$conexao = new mysqli($servidor, $usuario, $senha, $banco,3307);
 
 if ($conexao->connect_error) {
     die("Erro na conexão: " . $conexao->connect_error);
