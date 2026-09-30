@@ -1,31 +1,32 @@
 <?php
 
-include("config/conexao.php");
+include("../config/conexao.php");
 
-if (isset($_GET["id"])) {
+$id = $_GET["id"];
 
-    $id = $_GET["id"];
+$sql = "DELETE FROM brinquedos WHERE id = ?";
 
-    $sql = "DELETE FROM brinquedos WHERE id = ?";
+$stmt = $conexao->prepare($sql);
 
-    $stmt = $conexao->prepare($sql);
+if ($stmt) {
 
     $stmt->bind_param("i", $id);
 
     if ($stmt->execute()) {
 
-        header("Location: index.php");
+        header("Location: ../index.php");
         exit;
 
     } else {
 
-        echo "Erro ao excluir o brinquedo: " . $stmt->error;
-    }
+        echo "Erro ao excluir o brinquedo.";
 
-    $stmt->close();
+    }
 
 } else {
 
-    echo "ID do brinquedo não informado.";
+    echo "Erro ao preparar a exclusão.";
+
 }
+
 ?>
