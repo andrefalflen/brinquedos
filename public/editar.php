@@ -4,7 +4,6 @@ include("../config/conexao.php");
 
 $id = $_GET["id"];
 
-// Buscar o brinquedo
 $sql = "SELECT * FROM brinquedos WHERE id = ?";
 
 $stmt = $conexao->prepare($sql);
@@ -15,7 +14,6 @@ $resultado = $stmt->get_result();
 $brinquedo = $resultado->fetch_assoc();
 
 
-// Quando clicar em salvar
 if (isset($_POST["editar"])) {
 
     $nome = $_POST["nome"];
@@ -24,7 +22,7 @@ if (isset($_POST["editar"])) {
     $preco = $_POST["preco"];
     $quantidade = $_POST["quantidade"];
 
-    // Verificar se os campos estão preenchidos
+
     if (
         empty($nome) ||
         empty($categoria) ||
