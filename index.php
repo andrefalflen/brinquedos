@@ -17,21 +17,19 @@ $resultado = $conexao->query($sql);
 
     <title>Brinquedos</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
 
 </head>
 
 <body>
 
-<div class="container mt-5">
+    <h1>Gestão de Brinquedos</h1>
 
-    <h1>Lista de Brinquedos</h1>
+    <a href="public/cadastrar.php">Cadastrar brinquedo</a>
 
-    <a href="public/cadastrar.php" class="btn btn-primary mb-3">
-        Cadastrar brinquedo
-    </a>
+    <br><br>
 
-    <table class="table table-bordered">
+    <table>
 
         <tr>
             <th>ID</th>
@@ -61,13 +59,14 @@ $resultado = $conexao->query($sql);
 
             <td>
 
-                <a href="public/editar.php?id=<?= $brinquedo["id"] ?>"
-                   class="btn btn-warning btn-sm">
+                <a href="public/editar.php?id=<?= $brinquedo["id"] ?>">
                     Editar
                 </a>
 
+                |
+
                 <a href="public/excluir.php?id=<?= $brinquedo["id"] ?>"
-                   class="btn btn-danger btn-sm">
+                   onclick="return confirm('Deseja excluir este brinquedo?')">
                     Excluir
                 </a>
 
@@ -78,8 +77,6 @@ $resultado = $conexao->query($sql);
         <?php } ?>
 
     </table>
-
-</div>
 
 </body>
 
