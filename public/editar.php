@@ -7,10 +7,13 @@ $id = $_GET["id"];
 $sql = "SELECT * FROM brinquedos WHERE id = ?";
 
 $stmt = $conexao->prepare($sql);
+
 $stmt->bind_param("i", $id);
+
 $stmt->execute();
 
 $resultado = $stmt->get_result();
+
 $brinquedo = $resultado->fetch_assoc();
 
 
@@ -22,13 +25,12 @@ if (isset($_POST["editar"])) {
     $preco = $_POST["preco"];
     $quantidade = $_POST["quantidade"];
 
-
     if (
         empty($nome) ||
         empty($categoria) ||
         empty($faixa_etaria) ||
         empty($preco) ||
-        empty($quantidade)
+        $quantidade == ""
     ) {
 
         echo "Preencha todos os campos.";
@@ -64,20 +66,15 @@ if (isset($_POST["editar"])) {
 
             } else {
 
-                echo "Erro ao editar o brinquedo.";
+                echo "Erro ao editar.";
 
             }
-
-        } else {
-
-            echo "Erro ao preparar a atualização.";
 
         }
     }
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -86,80 +83,58 @@ if (isset($_POST["editar"])) {
     <meta charset="UTF-8">
 
     <title>Editar Brinquedo</title>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
 </head>
-
 <body>
-
-<div class="container mt-5">
-
     <h1>Editar Brinquedo</h1>
-
     <form method="POST">
-
-        <label>Nome</label>
-
+        <label>Nome:</label>
+        <br>
         <input
             type="text"
             name="nome"
             value="<?= $brinquedo["nome"] ?>"
-            class="form-control mb-3"
         >
+        <br><br>
 
-        <label>Categoria</label>
-
+        <label>Categoria:</label>
+        <br>
         <input
             type="text"
             name="categoria"
             value="<?= $brinquedo["categoria"] ?>"
-            class="form-control mb-3"
         >
-
-        <label>Faixa Etária</label>
-
+        <br><br>
+        <label>Faixa Etária:</label>
+        <br>
         <input
             type="text"
             name="faixa_etaria"
             value="<?= $brinquedo["faixa_etaria"] ?>"
-            class="form-control mb-3"
         >
-
-        <label>Preço</label>
-
+        <br><br>
+        <label>Preço:</label>
+        <br>
         <input
             type="number"
             step="0.01"
             name="preco"
             value="<?= $brinquedo["preco"] ?>"
-            class="form-control mb-3"
         >
-
-        <label>Quantidade</label>
-
+        <br><br>
+        <label>Quantidade:</label>
+        <br>
         <input
             type="number"
             name="quantidade"
             value="<?= $brinquedo["quantidade"] ?>"
-            class="form-control mb-3"
         >
+        <br><br>
 
-        <button
-            type="submit"
-            name="editar"
-            class="btn btn-warning">
-            Salvar alterações
+        <button type="submit" name="editar">
+            Salvar
         </button>
-
-        <a href="../index.php" class="btn btn-secondary">
-            Voltar
-        </a>
-
     </form>
-
-</div>
-
+    <br>
+    <a href="../index.php">Voltar</a>
 </body>
-
 </html>
